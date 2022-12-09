@@ -12,6 +12,7 @@ import java.util.Set;
  * @project spring5webapp
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -29,7 +30,7 @@ public class Book {
     @JoinColumn(name = "publisher_id")
     private Publisher publisher;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();

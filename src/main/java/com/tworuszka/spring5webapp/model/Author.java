@@ -1,5 +1,6 @@
 package com.tworuszka.spring5webapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,6 +15,7 @@ import java.util.Set;
 
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -26,6 +28,7 @@ public class Author {
     private String firstName;
     private String lastName;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books = new HashSet<>();
 
@@ -40,7 +43,6 @@ public class Author {
                 "id = " + id +
                 ", firstName = '" + firstName + '\'' +
                 ", lastName = '" + lastName + '\'' +
-                ", books = " + books +
                 '}';
     }
 

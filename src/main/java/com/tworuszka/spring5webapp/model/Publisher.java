@@ -1,6 +1,7 @@
 package com.tworuszka.spring5webapp.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Set;
  * @project spring5webapp
  */
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -28,7 +30,7 @@ public class Publisher {
     private String state;
     private String zip;
 
-    @OneToMany(mappedBy = "publisher", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "publisher")
     private Set<Book> books = new HashSet<>();
 
     public Publisher(String name, String addressLine1, String city, String state, String zip) {

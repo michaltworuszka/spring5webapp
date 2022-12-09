@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * @author Michał Tworuszka
  * @project spring5webapp
@@ -38,8 +40,8 @@ public class BootStrapData implements CommandLineRunner {
         rod.getBooks().add(noEJB);
         noEJB.getAuthors().add(rod);
 
-        authorRepository.save(eric);
-        authorRepository.save(rod);
+        authorRepository.saveAndFlush(eric);
+        authorRepository.saveAndFlush(rod);
         bookRepository.save(noEJB);
         bookRepository.save(ddd);
 
@@ -54,9 +56,9 @@ public class BootStrapData implements CommandLineRunner {
         publisher.getBooks().add(ddd);
         publisher.getBooks().add(noEJB);
 
-        bookRepository.save(noEJB);
-        bookRepository.save(ddd);
-        publisherRepository.save(publisher);
+        bookRepository.saveAndFlush(noEJB);
+        bookRepository.saveAndFlush(ddd);
+        publisherRepository.saveAndFlush(publisher);
 
 
         System.out.println("Started in Bootstrap");
@@ -66,10 +68,13 @@ public class BootStrapData implements CommandLineRunner {
         System.out.println(publisherRepository.findAll());
 
         System.out.println("Publisher number of Books: " + publisher.getBooks().size());
+        List<Book> books = bookRepository.findAll();
+        books.forEach(System.out::println);
+        //System.out.println(bookRepository.findAll());
 
         //some testing for fun
-        Publisher pub = publisherRepository.findById(1L).orElseThrow(() -> new RuntimeException(""));
-        System.out.println("for test: " + pub.getBooks().size());
+//        Publisher pub = publisherRepository.findById(1L).orElseThrow(() -> new RuntimeException(""));
+//        System.out.println("for test: " + pub.getBooks().size());
 
 
     }
